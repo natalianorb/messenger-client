@@ -1,21 +1,30 @@
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
-import FormControlLabel from '@mui/material/FormControlLabel'
-import Checkbox from '@mui/material/Checkbox'
 import Link from '@mui/material/Link'
 import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
-import { FormEvent } from 'react'
+import { FormEvent, useState } from 'react'
 import CssBaseline from '@mui/material/CssBaseline'
 import Container from '@mui/material/Container'
+import { useMutation } from '@apollo/client'
+import { CREATE_USER } from '../apollo/mutations/user'
 
 export default function SignIn () {
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    const data = new FormData(event.currentTarget)
-    console.log({
-      email: data.get('email'),
-      password: data.get('password')
+  const [newUser] = useMutation(CREATE_USER)
+  const [username, setUsername] = useState('')
+  const [age, setAge] = useState(0)
+  const addUser = (e: FormEvent) => {
+    e.preventDefault()
+    newUser({
+      variables: {
+        input: {
+          username, age
+        }
+      }
+    }).then(({ data }) => {
+      console.log(data)
+      setUsername('')
+      setAge(0)
     })
   }
 
@@ -30,7 +39,16 @@ export default function SignIn () {
           alignItems: 'center'
         }}
       >
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+        <Box component="form" onSubmit={addUser} noValidate sx={{ mt: 1 }}>
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            id="username"
+            label="Your name"
+            name="username"
+            autoFocus
+          />
           <TextField
             margin="normal"
             required
@@ -51,27 +69,18 @@ export default function SignIn () {
             id="password"
             autoComplete="current-password"
           />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
           <Button
             type="submit"
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
           >
-            Sign In
+            Sign Up
           </Button>
           <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2">
-                Forgot password?
-              </Link>
-            </Grid>
             <Grid item>
               <Link href="#" variant="body2">
-                {"Don't have an account? Sign Up"}
+                Already have account?
               </Link>
             </Grid>
           </Grid>

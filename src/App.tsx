@@ -1,7 +1,7 @@
 import Container from '@mui/material/Container'
 import CssBaseline from '@mui/material/CssBaseline'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
-import SignIn from './pages/sign-in/SignIn'
+import SignIn from './pages/SignIn'
 
 const theme = createTheme()
 
