@@ -5,13 +5,15 @@ import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import { FormEvent } from 'react';
+import { Dispatch, FormEvent, SetStateAction } from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
 import { useLazyQuery } from '@apollo/client';
 import LOGIN from '../apollo/queries/user';
 
-export default function SignIn() {
+export default function SignIn({ setIsLoggedIn }: {
+  setIsLoggedIn: Dispatch<SetStateAction<boolean>>
+ }) {
   const [login] = useLazyQuery(LOGIN);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -25,6 +27,10 @@ export default function SignIn() {
           password: data.get('password'),
         },
       },
+    }).then(() => {
+      setIsLoggedIn(true);
+    }).catch(() => {
+      setIsLoggedIn(false);
     });
   };
 
