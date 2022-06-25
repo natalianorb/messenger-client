@@ -1,9 +1,9 @@
-import { gql } from '@apollo/client'
+import { gql } from '@apollo/client';
 
-export const LOGIN = gql`
-    query login($id: ID){
-        getUser(id: $id) {
-            id, username
-        }
-    }    
-`
+export default gql`
+  query login($input: LoginInputType!) {
+    user(input: $input) {
+      email
+    }
+  }
+`;

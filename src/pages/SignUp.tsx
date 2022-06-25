@@ -1,32 +1,32 @@
-import Button from '@mui/material/Button'
-import TextField from '@mui/material/TextField'
-import Link from '@mui/material/Link'
-import Grid from '@mui/material/Grid'
-import Box from '@mui/material/Box'
-import { FormEvent, useState } from 'react'
-import CssBaseline from '@mui/material/CssBaseline'
-import Container from '@mui/material/Container'
-import { useMutation } from '@apollo/client'
-import { CREATE_USER } from '../apollo/mutations/user'
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Link from '@mui/material/Link';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import { FormEvent, useState } from 'react';
+import CssBaseline from '@mui/material/CssBaseline';
+import Container from '@mui/material/Container';
+import { useMutation } from '@apollo/client';
+import { CREATE_USER } from '../apollo/mutations/user';
 
-export default function SignIn () {
-  const [newUser] = useMutation(CREATE_USER)
-  const [username, setUsername] = useState('')
-  const [age, setAge] = useState(0)
+export default function SignIn() {
+  const [newUser] = useMutation(CREATE_USER);
+  const [username, setUsername] = useState('');
+  const [age, setAge] = useState(0);
   const addUser = (e: FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
     newUser({
       variables: {
         input: {
-          username, age
-        }
-      }
+          username, age,
+        },
+      },
     }).then(({ data }) => {
-      console.log(data)
-      setUsername('')
-      setAge(0)
-    })
-  }
+      console.log(data);
+      setUsername('');
+      setAge(0);
+    });
+  };
 
   return (
     <Container maxWidth="xs">
@@ -36,7 +36,7 @@ export default function SignIn () {
           marginTop: 8,
           display: 'flex',
           flexDirection: 'column',
-          alignItems: 'center'
+          alignItems: 'center',
         }}
       >
         <Box component="form" onSubmit={addUser} noValidate sx={{ mt: 1 }}>
@@ -88,5 +88,5 @@ export default function SignIn () {
       </Box>
     </Container>
 
-  )
+  );
 }
