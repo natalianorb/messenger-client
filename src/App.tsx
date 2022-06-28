@@ -1,21 +1,25 @@
 import { useState } from 'react';
-import Container from '@mui/material/Container';
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import SignIn from './pages/SignIn';
+import Main from './pages/Main';
+import User from './models/user';
 
 const theme = createTheme();
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const page = isLoggedIn ? <div /> : <SignIn setIsLoggedIn={setIsLoggedIn} />;
+  const [user, setUser] = useState(new User());
+  const page = isLoggedIn
+    ? <Main user={user} />
+    : <SignIn setIsLoggedIn={setIsLoggedIn} setUser={setUser} />;
 
   return (
     <ThemeProvider theme={theme}>
-      <Container component="main">
+      <div>
         <CssBaseline />
         { page }
-      </Container>
+      </div>
     </ThemeProvider>
   );
 }

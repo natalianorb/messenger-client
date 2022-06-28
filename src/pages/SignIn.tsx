@@ -10,25 +10,28 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
 import { useLazyQuery } from '@apollo/client';
 import LOGIN from '../apollo/queries/user';
+import User from '../models/user';
 
-export default function SignIn({ setIsLoggedIn }: {
-  setIsLoggedIn: Dispatch<SetStateAction<boolean>>
+export default function SignIn({ setIsLoggedIn, setUser }: {
+  setIsLoggedIn: Dispatch<SetStateAction<boolean>>,
+  setUser: Dispatch<SetStateAction<User>>,
  }) {
   const [login] = useLazyQuery(LOGIN);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
+    const formData = new FormData(event.currentTarget);
 
     login({
       variables: {
         input: {
-          email: data.get('email'),
-          password: data.get('password'),
+          email: formData.get('email'),
+          password: formData.get('password'),
         },
       },
-    }).then(() => {
+    }).then(({ data }) => {
       setIsLoggedIn(true);
+      setUser(data.user);
     }).catch(() => {
       setIsLoggedIn(false);
     });
@@ -91,7 +94,7 @@ export default function SignIn({ setIsLoggedIn }: {
             </Grid>
             <Grid item>
               <Link href="/" variant="body2">
-                Don't have an account? Sign Up
+                Don&apos;t have an account? Sign Up
               </Link>
             </Grid>
           </Grid>
