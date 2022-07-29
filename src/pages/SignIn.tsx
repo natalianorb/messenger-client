@@ -2,13 +2,14 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { Dispatch, FormEvent, SetStateAction } from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
 import { useLazyQuery } from '@apollo/client';
+import { Link } from 'react-router-dom';
+import Typography from '@mui/material/Typography';
 import LOGIN from '../apollo/queries/user';
 import User from '../models/user';
 
@@ -30,8 +31,9 @@ export default function SignIn({ setIsLoggedIn, setUser }: {
         },
       },
     }).then(({ data }) => {
+      const { user } = data;
       setIsLoggedIn(true);
-      setUser(data.user);
+      setUser(new User(user.id, user.email));
     }).catch(() => {
       setIsLoggedIn(false);
     });
@@ -48,6 +50,12 @@ export default function SignIn({ setIsLoggedIn, setUser }: {
           alignItems: 'center',
         }}
       >
+        <Typography
+          variant="h5"
+          component="h1"
+        >
+          Sign in to Messenger
+        </Typography>
         <Box
           component="form"
           onSubmit={(e: FormEvent<HTMLFormElement>) => handleSubmit(e)}
@@ -88,12 +96,12 @@ export default function SignIn({ setIsLoggedIn, setUser }: {
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link href="/" variant="body2">
+              <Link to="/">
                 Forgot password?
               </Link>
             </Grid>
             <Grid item>
-              <Link href="/" variant="body2">
+              <Link to="/signup">
                 Don&apos;t have an account? Sign Up
               </Link>
             </Grid>

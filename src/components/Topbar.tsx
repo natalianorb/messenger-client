@@ -2,6 +2,7 @@ import Typography from '@mui/material/Typography';
 import Toolbar from '@mui/material/Toolbar';
 import Avatar from '@mui/material/Avatar';
 import { AvatarInfo } from '../models/avatar-info';
+import Search from './Search';
 
 export default function Topbar({ avatarInfo, title } : { avatarInfo: AvatarInfo, title: string }) {
   const { altText, imgSrc } = avatarInfo;
@@ -21,6 +22,9 @@ export default function Topbar({ avatarInfo, title } : { avatarInfo: AvatarInfo,
         >
           { title }
         </Typography>
+      </Toolbar>
+      <Toolbar variant="dense">
+        <Search />
       </Toolbar>
     </div>
   );

@@ -1,17 +1,18 @@
-import { Container } from '@mui/material';
-import Topbar from '../components/Topbar';
-import { AvatarInfo } from '../models/avatar-info';
+import { useState } from 'react';
+import Chats from './Chats';
 import User from '../models/user';
 
+type Tab = 'Chats' | 'People' | 'Discover';
+
 export default function Main({ user }: { user: User }) {
-  const avatarInfo: AvatarInfo = {
-    altText: user.name,
-    imgSrc: '',
-  };
-  return (
-    <div>
-      <Topbar avatarInfo={avatarInfo} title="Chats" />
-      <Container component="main"> main content</Container>
-    </div>
-  );
+  const [selectedTab] = useState<Tab>('Chats');
+
+  switch (selectedTab) {
+    case 'Chats':
+      return <Chats user={user} />;
+    case 'People':
+      return <div />;
+    case 'Discover':
+      return <div />;
+  }
 }

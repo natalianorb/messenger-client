@@ -17,3 +17,16 @@ code {
 .MuiTypography-root {
   font-family: 'Heebo', sans-serif;
 }
+
+input[type="text"] {
+  font-size: 17px;
+  line-height: 1.2;
+}
+
+.MuiOutlinedInput-root {
+  border-radius: 10px;
+}
+
+.search-input {
+  background: 8px 10px url(./assets/search.svg) rgba(0, 0, 0, 0.05) no-repeat;
+}

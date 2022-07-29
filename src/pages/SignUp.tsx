@@ -1,30 +1,38 @@
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import { FormEvent, useState } from 'react';
+import { Dispatch, FormEvent, SetStateAction } from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
 import { useMutation } from '@apollo/client';
-import { CREATE_USER } from '../apollo/mutations/user';
+import { Link } from 'react-router-dom';
+import Typography from '@mui/material/Typography';
+import CREATE_USER from '../apollo/mutations/user';
+import User from '../models/user';
 
-export default function SignIn() {
-  const [newUser] = useMutation(CREATE_USER);
-  const [username, setUsername] = useState('');
-  const [age, setAge] = useState(0);
-  const addUser = (e: FormEvent) => {
+export default function SignUp({ setIsLoggedIn, setUser }: {
+  setIsLoggedIn: Dispatch<SetStateAction<boolean>>,
+  setUser: Dispatch<SetStateAction<User>>,
+}) {
+  const [createUserFn] = useMutation(CREATE_USER);
+  const addUser = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    newUser({
+    const formData = new FormData(e.currentTarget);
+    const email = formData.get('email');
+    const password = formData.get('password');
+
+    createUserFn({
       variables: {
-        input: {
-          username, age,
-        },
+        email,
+        password,
       },
     }).then(({ data }) => {
-      console.log(data);
-      setUsername('');
-      setAge(0);
+      setIsLoggedIn(true);
+      const { createUser } = data;
+      setUser(new User(createUser.id, createUser.email, createUser.name));
+    }).catch(() => {
+      setIsLoggedIn(false);
     });
   };
 
@@ -39,15 +47,27 @@ export default function SignIn() {
           alignItems: 'center',
         }}
       >
+        <Typography
+          variant="h4"
+          component="h1"
+        >
+          Messenger
+        </Typography>
+        <Typography
+          variant="h5"
+          component="h2"
+        >
+          Create account
+        </Typography>
         <Box component="form" onSubmit={addUser} noValidate sx={{ mt: 1 }}>
           <TextField
             margin="normal"
-            required
             fullWidth
-            id="username"
+            id="name"
             label="Your name"
-            name="username"
+            name="name"
             autoFocus
+            autoComplete="off"
           />
           <TextField
             margin="normal"
@@ -57,7 +77,6 @@ export default function SignIn() {
             label="Email Address"
             name="email"
             autoComplete="email"
-            autoFocus
           />
           <TextField
             margin="normal"
@@ -79,7 +98,7 @@ export default function SignIn() {
           </Button>
           <Grid container>
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link to="/">
                 Already have account?
               </Link>
             </Grid>
