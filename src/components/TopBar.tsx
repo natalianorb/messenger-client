@@ -3,11 +3,30 @@ import Toolbar from '@mui/material/Toolbar';
 import Avatar from '@mui/material/Avatar';
 import { AvatarInfo } from '../models/avatar-info';
 import Search from './Search';
+import './Topbar.css';
 
-export default function Topbar({ avatarInfo, title } : { avatarInfo: AvatarInfo, title: string }) {
-  const { altText, imgSrc } = avatarInfo;
+export interface Button {
+  id: string;
+  jsx: any;
+}
+
+interface TopBarProps {
+  avatarInfo: AvatarInfo,
+  title: string,
+  buttons: Button[]
+}
+
+export default function TopBar({
+  avatarInfo,
+  title,
+  buttons,
+}: TopBarProps) {
+  const {
+    altText,
+    imgSrc,
+  } = avatarInfo;
   return (
-    <div>
+    <div className="top-bar">
       <Toolbar>
         <Avatar alt={altText} src={imgSrc} />
         <Typography
@@ -20,8 +39,11 @@ export default function Topbar({ avatarInfo, title } : { avatarInfo: AvatarInfo,
             color: '#000',
           }}
         >
-          { title }
+          {title}
         </Typography>
+        <ul className="top-bar__buttons">
+          {buttons.map((btn) => <li key={btn.id}>{btn.jsx}</li>)}
+        </ul>
       </Toolbar>
       <Toolbar variant="dense">
         <Search />

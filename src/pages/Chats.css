@@ -1,0 +1,9 @@
+.chats {
+}
+
+.chats__new-msg {
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: 0 0 url(../assets/msg.svg) transparent no-repeat;
+}
