@@ -1,10 +1,11 @@
 import { Container } from '@mui/material';
-import { useId } from 'react';
+import { ChangeEvent, useCallback, useId } from 'react';
 import TopBar, { Button } from '../components/TopBar';
 import StoryLink from '../components/StoryLink';
 import { AvatarInfo } from '../models/avatar-info';
 import User from '../models/user';
 import './Chats.css';
+import SearchInput from '../components/SearchInput';
 
 export default function Chats({ user }: { user: User }) {
   const avatarInfo: AvatarInfo = {
@@ -15,10 +16,17 @@ export default function Chats({ user }: { user: User }) {
     id: useId(),
     jsx: <button type="button" className="chats__new-msg" aria-label="new message" />,
   }];
+  const onChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
+    const text = event.target.value;
+    console.log(text);
+  }, []);
 
   return (
-    <div>
+    <div className="chats">
       <TopBar avatarInfo={avatarInfo} title="Chats" buttons={buttons} />
+      <div className="chats__search">
+        <SearchInput onChange={onChange} />
+      </div>
       <Container component="main">
         <StoryLink avatarInfo={avatarInfo} url="1" />
       </Container>

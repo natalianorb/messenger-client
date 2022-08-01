@@ -1,6 +1,10 @@
 .chats {
 }
 
+.chats__search {
+    padding: 0 16px;
+}
+
 .chats__new-msg {
     width: 40px;
     height: 40px;

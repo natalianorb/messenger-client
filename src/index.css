@@ -1,32 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@400;700&display=swap');
 
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+    margin: 0;
+    font-family: 'Heebo', 'Roboto', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 .MuiTypography-root {
-  font-family: 'Heebo', sans-serif;
+    font-family: 'Heebo', sans-serif;
 }
 
 input[type="text"] {
-  font-size: 17px;
-  line-height: 1.2;
+    font-size: 17px;
+    line-height: 1.2;
 }
 
 .MuiOutlinedInput-root {
-  border-radius: 10px;
+    border-radius: 10px;
 }
 
-.search-input {
-  background: 8px 10px url(./assets/search.svg) rgba(0, 0, 0, 0.05) no-repeat;
-}

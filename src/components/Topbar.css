@@ -1,4 +1,6 @@
-.top-bar {
+.top-bar.MuiToolbar-root {
+    padding-left: 16px;
+    padding-right: 16px;
 }
 
 .top-bar__buttons {
@@ -6,3 +8,4 @@
     margin: 0;
     padding: 0;
 }
+
